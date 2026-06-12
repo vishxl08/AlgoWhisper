@@ -1,0 +1,62 @@
+[
+  {
+    "questionId": "1",
+    "title": "Two Sum",
+    "slug": "two-sum",
+    "difficulty": "Easy",
+    "topicTags": [{"name": "Array"}, {"name": "Hash Table"}],
+    "hints": [
+      "A brute force approach would be to check every pair of numbers.",
+      "Think about using a hash map to store complements."
+    ],
+    "content": "<p>Given an array of integers <code>nums</code> and an integer <code>target</code>, return <em>indices of the two numbers such that they add up to</em> <code>target</code>.</p><p>You may assume that each input would have <strong>exactly one solution</strong>, and you may not use the same element twice.</p>"
+  },
+  {
+    "questionId": "121",
+    "title": "Best Time to Buy and Sell Stock",
+    "slug": "best-time-to-buy-and-sell-stock",
+    "difficulty": "Easy",
+    "topicTags": [{"name": "Array"}, {"name": "Dynamic Programming"}],
+    "hints": [
+      "Track the minimum price seen so far.",
+      "Update max profit at each step."
+    ],
+    "content": "<p>You are given an array <code>prices</code> where <code>prices[i]</code> is the price of a given stock on the <code>i<sup>th</sup></code> day. Return the maximum profit you can achieve.</p>"
+  },
+  {
+    "questionId": "3",
+    "title": "Longest Substring Without Repeating Characters",
+    "slug": "longest-substring-without-repeating-characters",
+    "difficulty": "Medium",
+    "topicTags": [{"name": "Hash Table"}, {"name": "String"}, {"name": "Sliding Window"}],
+    "hints": [
+      "Use a sliding window with two pointers.",
+      "Keep a map of character to last seen index."
+    ],
+    "content": "<p>Given a string <code>s</code>, find the length of the <strong>longest substring</strong> without repeating characters.</p>"
+  },
+  {
+    "questionId": "15",
+    "title": "3Sum",
+    "slug": "3sum",
+    "difficulty": "Medium",
+    "topicTags": [{"name": "Array"}, {"name": "Two Pointers"}, {"name": "Sorting"}],
+    "hints": [
+      "Sort the array first.",
+      "Fix one element and use two pointers for the rest."
+    ],
+    "content": "<p>Given an integer array nums, return all the triplets <code>[nums[i], nums[j], nums[k]]</code> such that <code>i != j</code>, <code>i != k</code>, and <code>j != k</code>, and <code>nums[i] + nums[j] + nums[k] == 0</code>.</p>"
+  },
+  {
+    "questionId": "322",
+    "title": "Coin Change",
+    "slug": "coin-change",
+    "difficulty": "Medium",
+    "topicTags": [{"name": "Array"}, {"name": "Dynamic Programming"}, {"name": "Breadth-First Search"}],
+    "hints": [
+      "Think bottom-up DP: dp[amount] = min coins needed.",
+      "Initialize dp[0] = 0 and others to infinity."
+    ],
+    "content": "<p>You are given an integer array <code>coins</code> representing coins of different denominations and an integer <code>amount</code>. Return the fewest number of coins needed to make up that amount.</p>"
+  }
+]

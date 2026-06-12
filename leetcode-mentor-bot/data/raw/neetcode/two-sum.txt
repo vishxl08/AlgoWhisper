@@ -1,0 +1,13 @@
+Two Sum - NeetCode Video Transcript (sample)
+
+The brute force solution checks every pair - that's O(n squared). 
+The optimal approach uses a hash map. As we iterate through the array,
+we check if (target - current number) exists in the map. If yes, we found our pair.
+If not, we store the current number and its index in the map.
+
+Key insight: we only need one pass through the array. Each lookup and insert
+in the hash map is O(1) on average, giving us O(n) time and O(n) space.
+
+Related patterns: this is the classic "complement lookup" pattern used in
+many array problems. Similar problems include 3Sum (extend to triplets) and
+Two Sum II (sorted array with two pointers).
