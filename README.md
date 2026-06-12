@@ -124,13 +124,106 @@ python run_bot.py
 
 ## Tech Stack
 
-- **Embeddings**: sentence-transformers
-- **Vector DB**: ChromaDB
-- **LLM**: Groq API (Llama 3)
-- **API**: FastAPI
-- **Bot**: python-telegram-bot
-- **Sessions**: Redis
-- **Progress**: SQLite
+- **Embeddings**: sentence-transformers (all-MiniLM-L6-v2)
+- **Vector DB**: ChromaDB (persistent storage)
+- **LLM**: Groq API (Llama 3 70B)
+- **API**: FastAPI (async REST endpoints)
+- **Bot**: python-telegram-bot (v20+)
+- **Sessions**: Redis (conversation history)
+- **Progress**: SQLite (user progress tracking)
+- **Scheduling**: APScheduler (daily digests)
+- **HTTP Client**: httpx (async API calls)
+
+---
+
+## Project Structure
+
+```
+AlgoWhisper/
+├── api/
+│   ├── __init__.py
+│   └── main.py              # FastAPI application with REST endpoints
+├── bot/
+│   ├── __init__.py
+│   ├── api_client.py        # Async HTTP client for API communication
+│   ├── commands_catalog.py  # Command definitions and metadata
+│   ├── commands_setup.py    # Command registration
+│   ├── handlers.py          # Telegram message/command handlers
+│   ├── help_text.py         # Help message templates
+│   ├── main.py              # Telegram bot initialization
+│   ├── menu.py              # Interactive menu system
+│   ├── progress.py          # Progress tracking logic
+│   ├── scheduler.py         # Daily digest scheduling
+│   └── session.py           # Session management
+├── data/
+│   └── raw/                 # Raw problem data for ingestion
+├── ingestion/
+│   ├── __init__.py
+│   ├── chunker.py           # Text chunking for embeddings
+│   ├── embedder.py          # Embedding generation
+│   └── scraper.py           # LeetCode data scraping
+├── rag/
+│   ├── __init__.py
+│   ├── llm.py               # LLM integration (Groq API)
+│   ├── prompt_builder.py    # Prompt templates and construction
+│   ├── retriever.py         # Semantic search and retrieval
+│   ├── service.py           # RAG pipeline orchestration
+│   └── vectorstore.py       # ChromaDB operations
+├── scripts/
+│   └── ingest.py            # Data ingestion script
+├── .env                     # Environment variables
+├── .gitignore
+├── config.py                # Configuration management
+├── requirements.txt         # Python dependencies
+├── run_api.py               # API server entry point
+└── run_bot.py               # Bot entry point
+```
+
+---
+
+## Architecture Overview
+
+### RAG Pipeline Flow
+
+1. **Data Ingestion**
+   - Scrapes LeetCode problems, NeetCode transcripts, and strategy notes
+   - Processes and chunks text into optimal segments (500-1000 tokens)
+   - Generates embeddings using sentence-transformers
+   - Stores in ChromaDB with metadata (difficulty, tags, slug)
+
+2. **Retrieval**
+   - User query embedded using same model
+   - Semantic search finds top-k relevant chunks
+   - Re-ranks results based on problem context and user history
+
+3. **Generation**
+   - Constructs context-aware prompts with retrieved chunks
+   - Sends to Groq API (Llama 3 70B) for response generation
+   - Applies prompt engineering for hint vs. explanation modes
+   - Returns structured responses with code examples
+
+### Bot Architecture
+
+- **Async Handlers**: All bot operations use async/await for concurrency
+- **Session Management**: Redis stores conversation context per user
+- **Progress Tracking**: SQLite database for solved problems and streaks
+- **Scheduler**: APScheduler triggers daily digest at user-specified times
+- **Error Handling**: Comprehensive try-catch with user-friendly messages
+
+### API Architecture
+
+- **FastAPI**: Async REST framework with automatic OpenAPI docs
+- **Endpoints**: `/hint`, `/explain`, `/complexity`, `/similar`, `/stats`
+- **Validation**: Pydantic models for request/response validation
+- **CORS**: Configured for cross-origin requests
+
+---
+
+## Bot Availability Status
+
+⚠️ **Important**: The bot is currently **not available 24/7**. The bot runs on a local development environment and may experience downtime. We are working on deploying the bot to a cloud infrastructure (likely AWS/GCP) to ensure 24/7 availability. This issue will be fixed soon. Stay tuned for updates!
+
+---
 
 ---
 
